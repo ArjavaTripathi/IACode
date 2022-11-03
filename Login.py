@@ -1,34 +1,30 @@
 import sys
-from needed_code import Spce
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow
+import sys
 
+usernameindatabase = "whatever"
+passwordindatabase = "whatever2"
 
 LoginStatus = False
 
 
+class LoginPage(QMainWindow):
+    def __init__(self):
+        super(LoginPage, self).__init__()
+        self.initUI()
+
+    def initUI(self):
+
+        self.setWindowTitle('Login')
+        self.resize(350, 200)
+
+        UsernameLabel = QtWidgets.QLabel()
+        UsernameLabel.setText("Username")
+        UsernameLabel.move(50, 50)
 
 
-def Login(): 
-    global pswrd
-    pswrd = str(input("Enter your password: "))
-    
-
-
-
-Login()
-
-
-if pswrd == "Admin":
-    print()
-    print("Access Granted")
-    LoginStatus = True 
-else:
-    tries = 0
-    Totaltries = 3
-    while(tries < Totaltries):
-        tries += 1
-        Spce("Try n")
-        Login()
-    print("Access Denied")
-    sys.exit()
-
-print("LoginStatus is: " + str(LoginStatus))
+app = QApplication(sys.argv)
+form = LoginPage()
+form.show()
+sys.exit(app.exec_())
