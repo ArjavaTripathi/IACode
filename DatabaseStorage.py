@@ -2,7 +2,7 @@ import sqlite3
 
 
 class DatabaseStorageClass:
-    def __init__(self, ):
+    def __init__(self):
         self.conn = sqlite3.connect('processes.db')
         self.cursor = self.conn.cursor()
 
@@ -15,10 +15,10 @@ class DatabaseStorageClass:
                         DATE_OPEN TEXT
                     )''')
 
-    def InsertIntoDatabase(self, APP, LABELS, IGNORED, DATE_OPEN):
+    def InsertIntoDatabase(self):
 
         InsertInit = '''INSERT INTO StoringData(APP, DATE_OPEN) VALUES(?,?)'''
-        params = (APP, LABELS, IGNORED, DATE_OPEN)
+        #params = (APP, LABELS, IGNORED, DATE_OPEN)
 
-        self.cursor.execute(InsertInit, params)
-        self.conn.commit()
+        #self.cursor.execute(InsertInit, params)
+        # self.conn.commit()
