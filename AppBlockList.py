@@ -1,6 +1,6 @@
 import subprocess
 from DatabaseStorage import *
-from datetime import date 
+from datetime import date
 import re
 
 ActiveProcesses = []
@@ -8,7 +8,8 @@ StoreProcesses = []
 
 totalamount = 0
 
-def getProcess():
+
+def getProcess():  # Getting open processes
     cmd = 'powershell "gps | where {$_.MainWindowTitle } | select Description'
     proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
     for line in proc.stdout:
@@ -25,24 +26,17 @@ getProcess()
 del ActiveProcesses[0:3]
 
 
-
-
-for a in ActiveProcesses:   #Adds to StoreProcesses
+for a in ActiveProcesses:  # Adds to StoreProcesses
     StoreProcesses.append(a)
-    totalamount += 1 
+    totalamount += 1
 
-today = str(date.today())   #Reformats Date
+today = str(date.today())  # Reformats Date
 retoday = re.sub("-", "/", today)
 StoreProcesses.append(retoday)
 
 
-
-for a in StoreProcesses:    #Stores into database
+for a in StoreProcesses:  # Stores into database
     currentamount = 0
-    while(currentamount < totalamount):
+    while (currentamount < totalamount):
         param = (a, StoreProcesses[-1])
         cursor.execute(InsertInit, param)
-
-
-
-
