@@ -11,6 +11,19 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
+class verifyLogin():
+    def __init__(self, user, passw):
+        self.username = user
+        self.password = passw
+
+    def verfiyLoginFunc(self):
+        if self.username == "whatever1" and self.password == "whatever2":
+            print("ENTER")
+
+        else:
+            print("NO")
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -54,8 +67,9 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def clicked(self):
-        username = self.PasswordInput.text()
+        username = self.UserInput.text()
         password = self.PasswordInput.text()
+        verifyLogin(username, password).verfiyLoginFunc()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
