@@ -10,6 +10,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+f = open("Important.txt", "rt")
+
+print(type(f.read()))
+
 
 class verifyLogin():
     def __init__(self, user, passw):
