@@ -10,9 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-f = open("Important.txt", "rt")
-
-print(type(f.read()))
+f = open("Important.txt", "wt")
+g = open("Important.txt", "rt")
 
 
 class verifyLogin():
@@ -20,12 +19,20 @@ class verifyLogin():
         self.username = user
         self.password = passw
 
-    def verfiyLoginFunc(self):
+        if g.read() == "Admin":
+            self.CreatePassword()
+        else:
+            self.verifyLoginFunc()
+
+    def verifyLoginFunc(self):
         if self.username == "whatever1" and self.password == "whatever2":
             print("ENTER")
 
         else:
             print("NO")
+
+    def CreatePassword(self):
+        f.write(self.password)
 
 
 class Ui_MainWindow(object):
@@ -73,7 +80,7 @@ class Ui_MainWindow(object):
     def clicked(self):
         username = self.UserInput.text()
         password = self.PasswordInput.text()
-        verifyLogin(username, password).verfiyLoginFunc()
+        verifyLogin(username, password)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
