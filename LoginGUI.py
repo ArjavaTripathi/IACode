@@ -2,11 +2,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import configparser
 
 config = configparser.ConfigParser()
-config['Username'] = {'User1': 'Admin'}
-config['Password'] = {'User1': ''}
 
-with open('info.ini', 'w') as configfile:
-    config.write(configfile)
+
+with open('Info.ini', 'r') as configfile:
+    config.read(configfile)
 
 
 class verifyLogin():
@@ -16,7 +15,8 @@ class verifyLogin():
 
         # Add message to add password if first time open
         if config['Username']['User1'] == 'Admin' and config['Password']['User1'] == '':
-            self.CreatePassword()
+            # self.CreatePassword()
+            print("Worked")
         else:
             self.verifyLoginFunc()
 

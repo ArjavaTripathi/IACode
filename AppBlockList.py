@@ -4,6 +4,8 @@ from datetime import date
 import re
 
 
+# Reformat database
+
 class BlockList(DatabaseStorageClass):
     def __init__(self):
         self.ActiveProcesses = []
@@ -31,31 +33,6 @@ class BlockList(DatabaseStorageClass):
             pass
 
         print(self.ActiveProcesses)  # StoreIntoDB
-
-    """def editArray(self):
-
-        del self.ActiveProcesses[0:3]
-
-        for a in self.ActiveProcesses:  # Counts How Many Active Processes
-            self.totalamount += 1
-
-            today = str(date.today())  # Reformats Date
-            retoday = re.sub("-", "/", today)
-            self.ActiveProcesses.append(retoday)
-
-            self.StoreIntoDB()
-
-        print(self.ActiveProcesses)
-
-    def StoreIntoDB(self):
-
-        for a in self.ActiveProesses:  # Stores into database
-            currentamount = 0
-            while (currentamount < self.totalamount):
-                param = (a, self.ActiveProesses[-1])
-                DatabaseStorageClass().InsertIntoDatabase()
-
-            currentamount += 1"""
 
 
 BlockList()
