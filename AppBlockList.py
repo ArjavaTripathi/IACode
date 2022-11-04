@@ -7,7 +7,6 @@ import re
 class BlockList(DatabaseStorageClass):
     def __init__(self):
         self.ActiveProcesses = []
-        self.totalamount = 0
         self.getProcess()
 
     def getProcess(self):  # Getting open processes
@@ -18,11 +17,22 @@ class BlockList(DatabaseStorageClass):
                 # only print lines that are not empty
                 # decode() is necessary to get rid of the binary string (b')
                 # rstrip() to remove `\r\n`
-                print(line.decode().rstrip())
+                # print(line.decode().rstrip())
                 self.ActiveProcesses.append(line.decode().rstrip())
-                self.editArray()
+                #
+                #
+                # self.editArray()
 
-    def editArray(self):
+        try:
+            self.ActiveProcesses.remove('-----------')
+            self.ActiveProcesses.remove('Description')
+            self.ActiveProcesses.remove('Application Frame Host')
+        except ValueError:
+            pass
+
+        print(self.ActiveProcesses)  # StoreIntoDB
+
+    """def editArray(self):
 
         del self.ActiveProcesses[0:3]
 
@@ -45,7 +55,7 @@ class BlockList(DatabaseStorageClass):
                 param = (a, self.ActiveProesses[-1])
                 DatabaseStorageClass().InsertIntoDatabase()
 
-            currentamount += 1
+            currentamount += 1"""
 
 
 BlockList()

@@ -14,20 +14,23 @@ class verifyLogin():
         self.username = user
         self.password = passw
 
-        if config['Username']['User1'] == 'Admin' and config['Password']['User1'] == None:
+        # Add message to add password if first time open
+        if config['Username']['User1'] == 'Admin' and config['Password']['User1'] == '':
             self.CreatePassword()
         else:
             self.verifyLoginFunc()
 
     def verifyLoginFunc(self):
         if self.password == config['Password']['User1']:
-            print("ENTER")
+            print("ENTER")  # Add popup dialog
 
         else:
             print("NO")
 
     def CreatePassword(self):
-        f.write(self.password)
+        config.set('Password', 'User1', self.password)
+        with open('info.ini', 'w') as configfile:
+            config.write(configfile)
 
 
 class Ui_MainWindow(object):
