@@ -1,11 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import configparser
 
-config = configparser.ConfigParser()
 
-
-with open('Info.ini', 'r') as configfile:
-    config.read(configfile)
+configs = configparser.ConfigParser()
 
 
 class verifyLogin():
@@ -14,23 +11,27 @@ class verifyLogin():
         self.password = passw
 
         # Add message to add password if first time open
-        if config['Username']['User1'] == 'Admin' and config['Password']['User1'] == '':
-            # self.CreatePassword()
-            print("Worked")
+        # Change all this to read from database instead
+        if configs['Other']['firsttimeopen'] == "True":
+            self.CreatePassword()
+
         else:
             self.verifyLoginFunc()
 
     def verifyLoginFunc(self):
-        if self.password == config['Password']['User1']:
+        if self.password == configs['Password']['User1']:
             print("ENTER")  # Add popup dialog
 
         else:
             print("NO")
 
     def CreatePassword(self):
-        config.set('Password', 'User1', self.password)
+
+        configs.set('Password', 'User1', self.password)
+        configs.set('Other', 'firsttimeopen', 'False')
+
         with open('info.ini', 'w') as configfile:
-            config.write(configfile)
+            configs.write(configfile)
 
 
 class Ui_MainWindow(object):
