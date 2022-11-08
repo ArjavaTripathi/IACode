@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox
 from UIs.ui_MainScreenUIDraft import Ui_Dialog
 from datetime import datetime
 from AppBlockList import BlockList
+import asyncio
 import sqlite3
 
 conn = sqlite3.connect('StoreProfile.db')
@@ -35,6 +36,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.SETButton.clicked.connect(self.setmax)
         BlockList()
         self.loaddata()
+
+        BlockList().killProcesses()
+
+        """asyncio(self.killp())"""
 
     def IgnoredButton(self):
         from IgnoreList import IgnoreCode
@@ -100,6 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 AlreadyIn.append(row)
 
     def CheckIgnored(self):
+
         cur = self.MainTable.currentRow()
         cur2 = self.MainTable.currentColumn()
 
@@ -182,6 +188,10 @@ class MainWindow(QtWidgets.QMainWindow):
                 "Please Enter a Number for the maximum number of entertainment applications allowed today!")
             self.msgVal.setIcon(QMessageBox.Information)
             self.msgVal.show()
+
+    """async def killp(self):
+        periodKp = asyncio.create_task(BlockList().killProcesses())
+        await asyncio.gather(periodKp)"""
 
 
 if __name__ == '__main_':
