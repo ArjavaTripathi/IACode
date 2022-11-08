@@ -1,6 +1,7 @@
 import subprocess
 from datetime import datetime
-import re
+import psutil
+import os
 import sqlite3
 
 
@@ -11,7 +12,7 @@ cursor = conn.cursor()
 class BlockList():
     def __init__(self):
         self.ActiveProcesses = []
-        self.getProcess()
+        # self.getProcess()
 
     def getProcess(self):  # Getting open processes
         cmd = 'powershell "gps | where {$_.MainWindowTitle } | select Description'
@@ -54,5 +55,16 @@ class BlockList():
                     "UPDATE StoringData SET Date_Open = ? WHERE APP = ?", (today, i))
                 conn.commit()
 
+    def killProcesses(self):
+        cursor.execute("SELECT APP FROM StoringData WHERE BLOCKED = 1")
+        results = cursor.fetchall()
+        resultsFinal = []
 
-BlockList()
+        for i in range(len(results)):
+            resultsFinal.append(results[i][0])
+
+        for i in resultsFinal:
+            subprocess.call(f"TASKKILL /F /IM {i}.exe", shell=True)
+
+
+BlockList().killProcesses()

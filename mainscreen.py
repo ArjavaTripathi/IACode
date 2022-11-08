@@ -169,6 +169,12 @@ class MainWindow(QtWidgets.QMainWindow):
             cursor.execute(
                 "UPDATE StoringData SET MAXEnt = ? WHERE id = 1", (Max,))
             conn.commit()
+            self.msgVal1 = QMessageBox()
+            self.msgVal1.setWindowTitle("Successfully Set!")
+            self.msgVal1.setText(
+                f"A limit of {Max} is successfully set on todays Entertainment Apps!")
+            self.msgVal1.setIcon(QMessageBox.Information)
+            self.msgVal1.show()
         except ValueError:
             self.msgVal = QMessageBox()
             self.msgVal.setWindowTitle("Incorrect Format!")
