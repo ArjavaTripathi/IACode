@@ -1,12 +1,14 @@
 import subprocess
-from DatabaseStorage import DatabaseStorageClass
-from datetime import date
+from datetime import datetime
 import re
+import sqlite3
 
 
-# Reformat database
+conn = sqlite3.connect('StoreProfile.db')
+cursor = conn.cursor()
 
-class BlockList(DatabaseStorageClass):
+
+class BlockList():
     def __init__(self):
         self.ActiveProcesses = []
         self.getProcess()
@@ -32,7 +34,12 @@ class BlockList(DatabaseStorageClass):
         except ValueError:
             pass
 
-        print(self.ActiveProcesses)  # StoreIntoDB
+        for i in self.ActiveProcesses:
+            today = datetime.today().strftime('%d-%m-%Y')
+            InsertInit = '''INSERT INTO StoringData(APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER,  BLOCKED, LABELS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'''
+            params = (i, 0, 0, 0, 0, 0, "None",  today)
+            cursor.execute(InsertInit, params)
+            conn.commit()
 
 
 BlockList()

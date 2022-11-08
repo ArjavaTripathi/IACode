@@ -1,7 +1,6 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from UIs.ui_LoginUI import Ui_MainWindow
-
+import time
 import sqlite3
 
 conn = sqlite3.connect('StoreProfile.db')
@@ -39,11 +38,17 @@ class LoginCode(QtWidgets.QMainWindow):
             self.close()
         else:
 
-            if passwordCorr[0][0] == "":
+            if passwordCorr[0][0] == None:
                 cursor.execute(
                     '''UPDATE StoringData SET password = ? WHERE id = ?''', [password, 1])  # Doesnt Work!
 
                 conn.commit()
+                self.ui.LoginLabel.setText(f"password set to: {password}")
+                time.sleep(2)
+                from mainscreen import MainWindow
+                self.cams = MainWindow()
+                self.cams.show()
+                self.close()
 
             else:
                 self.ui.LoginLabel.setText("Login Failed!")

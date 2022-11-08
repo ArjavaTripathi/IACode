@@ -19,6 +19,7 @@ class DatabaseStorageClass:
                         ENTERTAINMENT BIT NOT NULL,
                         PRODUCTIVITY BIT NOT NULL,
                         OTHER BIT NOT NULL,
+                        BLOCKED BUT NOT NULL,
                         LABELS TEXT,
                         DATE_OPEN TEXT
                     )''')
@@ -32,11 +33,12 @@ class DatabaseStorageClass:
         # self.conn.commit()
 
 
-DatabaseStorageClass()
+# DatabaseStorageClass()
 today = datetime.today().strftime('%d-%m-%Y')
+print(today)
 print()
 
-InsertInit = '''INSERT INTO StoringData(id, APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER, LABELS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'''
-params = (9, "Whatsapp", 0, 0, 1, 0, "Communication", today)
+InsertInit = '''INSERT INTO StoringData(id, APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER,  BLOCKED, LABELS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+params = (200, "5050", 0, 0, 0, 0, 0, "Communication, Results", today)
 cursor.execute(InsertInit, params)
 conn.commit()
