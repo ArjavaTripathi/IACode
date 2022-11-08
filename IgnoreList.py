@@ -31,13 +31,13 @@ class IgnoreCode(QtWidgets.QMainWindow):
     def ignorecode(self):
         Name = self.ui.InputName.text()
         cursor.execute(
-            "SELECT IGNORED FROM StoringData WHERE APP = ?", [Name])
+            "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [Name])
         results = cursor.fetchall()
         print(results)
         try:
             if results[0][0] == 0:
                 cursor.execute(
-                    "UPDATE StoringData SET IGNORED = 1 WHERE APP = ?", [Name])
+                    "UPDATE StoringData SET IGNORED = 1 WHERE ALIAS = ?", [Name])
                 conn.commit()
             elif results[0][0] == 1:
                 self.msg = QMessageBox()
@@ -55,13 +55,13 @@ class IgnoreCode(QtWidgets.QMainWindow):
     def unignorecode(self):
         Name = self.ui.InputName.text()
         cursor.execute(
-            "SELECT IGNORED FROM StoringData WHERE APP = ?", [Name])
+            "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [Name])
         results = cursor.fetchall()
         print(results)
         try:
             if results[0][0] == 1:
                 cursor.execute(
-                    "UPDATE StoringData SET IGNORED = 0 WHERE APP = ?", [Name])
+                    "UPDATE StoringData SET IGNORED = 0 WHERE ALIAS = ?", [Name])
                 conn.commit()
             elif results[0][0] == 0:
                 self.msg = QMessageBox()

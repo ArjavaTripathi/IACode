@@ -31,6 +31,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.SaveButton.clicked.connect(self.CheckIgnored)
         self.ui.Ignored.clicked.connect(self.IgnoredButton)
         self.ui.BlockedList.clicked.connect(self.BlockedRedirect)
+        self.ui.GoButton.clicked.connect(self.go)
+        self.ui.SETButton.clicked.connect(self.setmax)
         BlockList()
         self.loaddata()
 
@@ -65,17 +67,19 @@ class MainWindow(QtWidgets.QMainWindow):
         for i in range(len(results)):
             FinalResults.append(results[i][0])
 
+        print(FinalResults, " Before")
+
         for i in FinalResults:
             cursor.execute(
                 "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [i])
             r = cursor.fetchall()
             if r[0][0] == 1:
                 FinalResults.remove(i)
-            if i not in FinalR and i != "AdminAlias":
-                FinalR.append(i)
+
+        print(FinalResults, " After")
 
         for i in FinalResults:
-            self.AutoAddRows(FinalR, today)
+            self.AutoAddRows(FinalResults, today)
 
     def AutoAddRows(self, results, date):
         rowCounter = len(results)
@@ -102,13 +106,13 @@ class MainWindow(QtWidgets.QMainWindow):
         ItemtoIgnore = self.MainTable.item(cur, cur2-1).text()
 
         cursor.execute(
-            "SELECT IGNORED FROM StoringData WHERE APP = ?", [ItemtoIgnore])
+            "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [ItemtoIgnore])
 
         results = cursor.fetchall()
         try:
             if results[0][0] == 0:
                 cursor.execute(
-                    "UPDATE StoringData SET IGNORED = 1 WHERE APP = ?", [ItemtoIgnore])
+                    "UPDATE StoringData SET IGNORED = 1 WHERE ALIAS = ?", [ItemtoIgnore])
                 conn.commit()
                 self.msg0 = QMessageBox()
                 self.msg0.setWindowTitle("Ignored!")
@@ -146,8 +150,35 @@ class MainWindow(QtWidgets.QMainWindow):
             self.msg.setIcon(QMessageBox.Critical)
             self.msg.show()
 
+    def go(self):
+        from SearchBar import SearchBarCode
+        Name = self.ui.SearchBar.text()
 
-if __name__ == '__main__':
+        print(Name)
+
+        self.cams = SearchBarCode([Name])
+        self.cams.show()
+        self.close()
+
+    def setmax(self):
+        MaxNo = self.ui.NumberEdit.text()
+
+        try:
+            Max = int(MaxNo)
+
+            cursor.execute(
+                "UPDATE StoringData SET MAXEnt = ? WHERE id = 1", (Max,))
+            conn.commit()
+        except ValueError:
+            self.msgVal = QMessageBox()
+            self.msgVal.setWindowTitle("Incorrect Format!")
+            self.msgVal.setText(
+                "Please Enter a Number for the maximum number of entertainment applications allowed today!")
+            self.msgVal.setIcon(QMessageBox.Information)
+            self.msgVal.show()
+
+
+if __name__ == '__main_':
 
     import sys
     app = QtWidgets.QApplication(sys.argv)

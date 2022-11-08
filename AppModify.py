@@ -104,17 +104,19 @@ class ModifyCode(QtWidgets.QMainWindow):
         if EntertainmentCheck.isChecked():
             cursor.execute(
                 "SELECT ENTERTAINMENT FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
+            res = cursor.fetchone()
 
-            if resent[0][0] == 0:
+            resent = list(res)
+
+            if resent[0] == 0:
                 cursor.execute(
                     "UPDATE StoringData SET ENTERTAINMENT = ? WHERE ALIAS = ?", [1, self.name])
                 conn.commit()
         else:
             cursor.execute(
                 "SELECT ENTERTAINMENT FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
-            if resent[0][0] == 1:
+            resent = cursor.fetchone()
+            if resent[0] == 1:
                 cursor.execute(
                     "UPDATE StoringData SET ENTERTAINMENT = ? WHERE ALIAS = ?", [0, self.name])
                 conn.commit()
@@ -122,17 +124,17 @@ class ModifyCode(QtWidgets.QMainWindow):
         if ProductivityCheck.isChecked():
             cursor.execute(
                 "SELECT PRODUCTIVITY FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
+            resent = cursor.fetchone()
 
-            if resent[0][0] == 0:
+            if resent[0] == 0:
                 cursor.execute(
                     "UPDATE StoringData SET PRODUCTIVITY = ? WHERE ALIAS = ?", [1, self.name])
                 conn.commit()
         else:
             cursor.execute(
                 "SELECT PRODUCTIVITY FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
-            if resent[0][0] == 1:
+            resent = cursor.fetchone()
+            if resent[0] == 1:
                 cursor.execute(
                     "UPDATE StoringData SET PRODUCTIVITY = ? WHERE ALIAS = ?", [0, self.name])
                 conn.commit()
@@ -140,17 +142,17 @@ class ModifyCode(QtWidgets.QMainWindow):
         if OthersCheck.isChecked():
             cursor.execute(
                 "SELECT OTHER FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
+            resent = cursor.fetchone()
 
-            if resent[0][0] == 0:
+            if resent[0] == 0:
                 cursor.execute(
                     "UPDATE StoringData SET OTHER = ? WHERE ALIAS = ?", [1, self.name])
                 conn.commit()
         else:
             cursor.execute(
                 "SELECT OTHER FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
-            if resent[0][0] == 1:
+            resent = cursor.fetchone()
+            if resent[0] == 1:
                 cursor.execute(
                     "UPDATE StoringData SET OTHER = ? WHERE ALIAS = ?", [0, self.name])
                 conn.commit()
@@ -158,17 +160,17 @@ class ModifyCode(QtWidgets.QMainWindow):
         if BlockedCheck.isChecked():
             cursor.execute(
                 "SELECT BLOCKED FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
+            resent = cursor.fetchone()
 
-            if resent[0][0] == 0:
+            if resent[0] == 0:
                 cursor.execute(
                     "UPDATE StoringData SET BLOCKED = ? WHERE ALIAS = ?", [1, self.name])
                 conn.commit()
         else:
             cursor.execute(
                 "SELECT BLOCKED FROM StoringData WHERE ALIAS = ?", [self.name])
-            resent = cursor.fetchall()
-            if resent[0][0] == 1:
+            resent = cursor.fetchone()
+            if resent[0] == 1:
                 cursor.execute(
                     "UPDATE StoringData SET BLOCKED = ? WHERE ALIAS = ?", [0, self.name])
                 conn.commit()

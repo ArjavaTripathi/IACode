@@ -76,12 +76,11 @@ class GroupsCode(QtWidgets.QMainWindow):
             self.AutoAddRows(FinalResults, self.oth)
 
     def AutoAddRows(self, results, table):
-        results.remove("AdminAlias")
 
         FinalR = []
 
         for a in results:
-            if a not in FinalR:
+            if a not in FinalR and a != "AdminAlias":
                 FinalR.append(a)
 
         rowCounter = len(FinalR)

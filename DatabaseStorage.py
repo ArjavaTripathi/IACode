@@ -22,6 +22,7 @@ class DatabaseStorageClass:
                         BLOCKED BUT NOT NULL,
                         LABELS TEXT,
                         ALIAS TEXT,
+                        MAXEnt INTEGER,
                         DATE_OPEN TEXT
                     )''')
 
@@ -34,7 +35,7 @@ class DatabaseStorageClass:
         # self.conn.commit()
 
 
-# DatabaseStorageClass()
+DatabaseStorageClass()
 today = datetime.today().strftime('%d-%m-%Y')
 print(today)
 print()

@@ -22,7 +22,7 @@ class BlockList():
                 # decode() is necessary to get rid of the binary string (b')
                 # rstrip() to remove `\r\n`
                 # print(line.decode().rstrip())
-                self.ActiveProcesses.append(line.decode().rstrip())
+                self.ActiveProcesses.append(line.decode('latin-1').rstrip())
                 #
                 #
                 # self.editArray()
