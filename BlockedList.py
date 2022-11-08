@@ -40,15 +40,12 @@ class BlockedCode(QtWidgets.QMainWindow):
         for i in range(len(results)):
             FinalResults.append(results[i][0])
 
-        print(FinalResults)
-
         for i in FinalResults:
             self.AutoAddRows(FinalResults)
 
     def AutoAddRows(self, results):
 
         rowCounter = len(results)
-        print(rowCounter)
 
         self.Ta.setRowCount(rowCounter)
 

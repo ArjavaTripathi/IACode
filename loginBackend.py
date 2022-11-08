@@ -28,10 +28,8 @@ class LoginCode(QtWidgets.QMainWindow):
 
         passwordCorr = cursor.fetchall()
 
-        print(passwordCorr)
-
         if username == usernameCorr and password == passwordCorr[0][0]:
-            print("Success!")  # NextSlide
+
             from mainscreen import MainWindow
             self.cams = MainWindow()
             self.cams.show()
@@ -45,6 +43,7 @@ class LoginCode(QtWidgets.QMainWindow):
                 conn.commit()
                 self.ui.LoginLabel.setText(f"password set to: {password}")
                 time.sleep(2)
+
                 from mainscreen import MainWindow
                 self.cams = MainWindow()
                 self.cams.show()

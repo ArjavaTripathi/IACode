@@ -72,16 +72,12 @@ class MainWindow(QtWidgets.QMainWindow):
         for i in range(len(results)):
             FinalResults.append(results[i][0])
 
-        print(FinalResults, " Before")
-
         for i in FinalResults:
             cursor.execute(
                 "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [i])
             r = cursor.fetchall()
             if r[0][0] == 1:
                 FinalResults.remove(i)
-
-        print(FinalResults, " After")
 
         for i in FinalResults:
             self.AutoAddRows(FinalResults, today)
@@ -159,8 +155,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def go(self):
         from SearchBar import SearchBarCode
         Name = self.ui.SearchBar.text()
-
-        print(Name)
 
         self.cams = SearchBarCode([Name])
         self.cams.show()

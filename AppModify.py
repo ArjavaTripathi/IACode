@@ -89,7 +89,6 @@ class ModifyCode(QtWidgets.QMainWindow):
         BlockedCheck = self.ui.Block
 
         if NewLabel != "":
-            print("Running")
             cursor.execute("UPDATE StoringData SET LABELS = ? WHERE ALIAS = ?", [
                            NewLabel, self.name])
             conn.commit()
@@ -176,7 +175,6 @@ class ModifyCode(QtWidgets.QMainWindow):
                 conn.commit()
 
     def BackButton(self):
-        print("Hi")
         from mainscreen import MainWindow
         self.cams = MainWindow()
         self.cams.show()

@@ -33,7 +33,6 @@ class IgnoreCode(QtWidgets.QMainWindow):
         cursor.execute(
             "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [Name])
         results = cursor.fetchall()
-        print(results)
         try:
             if results[0][0] == 0:
                 cursor.execute(
@@ -57,7 +56,7 @@ class IgnoreCode(QtWidgets.QMainWindow):
         cursor.execute(
             "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [Name])
         results = cursor.fetchall()
-        print(results)
+
         try:
             if results[0][0] == 1:
                 cursor.execute(
