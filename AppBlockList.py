@@ -35,11 +35,24 @@ class BlockList():
             pass
 
         for i in self.ActiveProcesses:
+
             today = datetime.today().strftime('%d-%m-%Y')
-            InsertInit = '''INSERT INTO StoringData(APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER,  BLOCKED, LABELS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'''
-            params = (i, 0, 0, 0, 0, 0, "None",  today)
-            cursor.execute(InsertInit, params)
-            conn.commit()
+
+            cursor.execute("SELECT APP FROM StoringData WHERE APP = ?", [i])
+
+            res = cursor.fetchall()
+
+            if not res:
+
+                InsertInit = '''INSERT INTO StoringData(APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER,  BLOCKED, LABELS, ALIAS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+                params = (i, 0, 0, 0, 0, 0, "None", i,  today)
+                cursor.execute(InsertInit, params)
+                conn.commit()
+
+            else:
+                cursor.execute(
+                    "UPDATE StoringData SET Date_Open = ? WHERE APP = ?", (today, i))
+                conn.commit()
 
 
 BlockList()

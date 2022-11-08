@@ -21,6 +21,7 @@ class DatabaseStorageClass:
                         OTHER BIT NOT NULL,
                         BLOCKED BUT NOT NULL,
                         LABELS TEXT,
+                        ALIAS TEXT,
                         DATE_OPEN TEXT
                     )''')
 
@@ -38,7 +39,7 @@ today = datetime.today().strftime('%d-%m-%Y')
 print(today)
 print()
 
-InsertInit = '''INSERT INTO StoringData(id, APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER,  BLOCKED, LABELS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'''
-params = (200, "5050", 0, 0, 0, 0, 0, "Communication, Results", today)
+InsertInit = '''INSERT INTO StoringData(id, APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER,  BLOCKED, LABELS, ALIAS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+params = (1, "Admin", 1, 1, 1, 1, 1, "AdminLabel", "AdminAlias", today)
 cursor.execute(InsertInit, params)
 conn.commit()

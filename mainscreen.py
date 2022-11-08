@@ -56,7 +56,7 @@ class MainWindow(QtWidgets.QMainWindow):
         today = datetime.today().strftime('%d-%m-%Y')
         params = [today]
         cursor.execute(
-            "SELECT APP FROM StoringData WHERE DATE_OPEN = ?", [today])
+            "SELECT ALIAS FROM StoringData WHERE DATE_OPEN = ?", [today])
 
         results = cursor.fetchall()
         FinalResults = []
@@ -67,11 +67,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         for i in FinalResults:
             cursor.execute(
-                "SELECT IGNORED FROM StoringData WHERE APP = ?", [i])
+                "SELECT IGNORED FROM StoringData WHERE ALIAS = ?", [i])
             r = cursor.fetchall()
             if r[0][0] == 1:
                 FinalResults.remove(i)
-            if i not in FinalR and i != "Admin":
+            if i not in FinalR and i != "AdminAlias":
                 FinalR.append(i)
 
         for i in FinalResults:

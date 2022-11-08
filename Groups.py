@@ -37,7 +37,7 @@ class GroupsCode(QtWidgets.QMainWindow):
         self.close()
 
     def Entertainment(self):
-        query = "SELECT APP FROM StoringData WHERE ENTERTAINMENT = ?"
+        query = "SELECT ALIAS FROM StoringData WHERE ENTERTAINMENT = ?"
         params = (1,)
         cursor.execute(query, params)
         results = cursor.fetchall()
@@ -50,7 +50,7 @@ class GroupsCode(QtWidgets.QMainWindow):
             self.AutoAddRows(FinalResults, self.Ent)
 
     def Productivity(self):
-        query = "SELECT APP FROM StoringData WHERE PRODUCTIVITY = ?"
+        query = "SELECT ALIAS FROM StoringData WHERE PRODUCTIVITY = ?"
         params = (1,)
         cursor.execute(query, params)
         results = cursor.fetchall()
@@ -63,7 +63,7 @@ class GroupsCode(QtWidgets.QMainWindow):
             self.AutoAddRows(FinalResults, self.Prod)
 
     def Others(self):
-        query = "SELECT APP FROM StoringData WHERE OTHER = ?"
+        query = "SELECT ALIAS FROM StoringData WHERE OTHER = ?"
         params = (1,)
         cursor.execute(query, params)
         results = cursor.fetchall()
@@ -76,6 +76,7 @@ class GroupsCode(QtWidgets.QMainWindow):
             self.AutoAddRows(FinalResults, self.oth)
 
     def AutoAddRows(self, results, table):
+        results.remove("AdminAlias")
 
         FinalR = []
 
