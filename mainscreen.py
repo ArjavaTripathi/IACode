@@ -39,8 +39,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         BlockList().killProcesses()
 
-        """asyncio(self.killp())"""
-
     def IgnoredButton(self):
         from IgnoreList import IgnoreCode
         self.cams = IgnoreCode()

@@ -35,10 +35,13 @@ class DatabaseStorageClass:
         # self.conn.commit()
 
 
-DatabaseStorageClass()
+# DatabaseStorageClass()
 today = datetime.today().strftime('%d-%m-%Y')
 
 InsertInit = '''INSERT INTO StoringData(id, APP, IGNORED, ENTERTAINMENT, PRODUCTIVITY, OTHER,  BLOCKED, LABELS, ALIAS, DATE_OPEN) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
 params = (1, "Admin", 1, 1, 1, 1, 1, "AdminLabel", "AdminAlias", today)
 cursor.execute(InsertInit, params)
 conn.commit()
+
+#cursor.execute("DELETE FROM StoringData")
+# conn.commit()

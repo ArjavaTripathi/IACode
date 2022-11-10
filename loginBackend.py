@@ -26,9 +26,9 @@ class LoginCode(QtWidgets.QMainWindow):
         cursor.execute(
             '''SELECT Password FROM StoringData WHERE id = ?''', [1])
 
-        passwordCorr = cursor.fetchall()
+        passwordCorr = cursor.fetchone()
 
-        if username == usernameCorr and password == passwordCorr[0][0]:
+        if username == usernameCorr and password == passwordCorr[0]:
 
             from mainscreen import MainWindow
             self.cams = MainWindow()
@@ -36,7 +36,7 @@ class LoginCode(QtWidgets.QMainWindow):
             self.close()
         else:
 
-            if passwordCorr[0][0] == None:
+            if passwordCorr[0] == None:
                 cursor.execute(
                     '''UPDATE StoringData SET password = ? WHERE id = ?''', [password, 1])  # Doesnt Work!
 
