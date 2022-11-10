@@ -44,4 +44,4 @@ cursor.execute(InsertInit, params)
 conn.commit()
 
 #cursor.execute("DELETE FROM StoringData")
-# conn.commit()
+conn.commit()
