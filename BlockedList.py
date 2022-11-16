@@ -1,6 +1,5 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from UIs.ui_BlockList import Ui_MainWindow
-
 import sqlite3
 
 conn = sqlite3.connect('StoreProfile.db')

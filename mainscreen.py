@@ -1,12 +1,14 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 from UIs.ui_MainScreenUIDraft import Ui_Dialog
 from datetime import datetime
 from AppBlockList import BlockList
-import asyncio
+from threading import Thread
 import sqlite3
 
-conn = sqlite3.connect('StoreProfile.db')
+
+dburi = 'StoreProfile.db'
+conn = sqlite3.connect(dburi, uri=True, check_same_thread=False)
 cursor = conn.cursor()
 
 
@@ -34,10 +36,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.BlockedList.clicked.connect(self.BlockedRedirect)
         self.ui.GoButton.clicked.connect(self.go)
         self.ui.SETButton.clicked.connect(self.setmax)
-        BlockList()
-        self.loaddata()
+        self.ui.RefreshButton.clicked.connect(self.refreshpage)
 
-        BlockList().killProcesses()
+        self.threadBg = Thread(target=BlockList, daemon=True)
+        self.threadBg.start()
+        self.loaddata()
 
     def IgnoredButton(self):
         from IgnoreList import IgnoreCode
@@ -60,6 +63,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def loaddata(self):
         today = datetime.today().strftime('%d-%m-%Y')
         params = [today]
+
         cursor.execute(
             "SELECT ALIAS FROM StoringData WHERE DATE_OPEN = ?", [today])
 
@@ -181,9 +185,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.msgVal.setIcon(QMessageBox.Information)
             self.msgVal.show()
 
-    """async def killp(self):
-        periodKp = asyncio.create_task(BlockList().killProcesses())
-        await asyncio.gather(periodKp)"""
+    def refreshpage(self):
+        pass  # Restart Software to update table
 
 
 if __name__ == '__main_':
