@@ -1,12 +1,12 @@
 import subprocess
 from datetime import datetime
 import psutil
-import os
+import threading
 import sqlite3
-import difflib
 
 
-conn = sqlite3.connect('StoreProfile.db')
+dburi = 'StoreProfile.db'
+conn = sqlite3.connect(dburi, uri=True, check_same_thread=False)
 cursor = conn.cursor()
 
 
@@ -14,8 +14,10 @@ class BlockList():
     def __init__(self):
         self.ActiveProcesses = []
         self.getProcess()
+        self.killProcesses()
 
     def getProcess(self):  # Getting open processes
+
         cmd = 'powershell "gps | where {$_.MainWindowTitle } | select Description'
         proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         for line in proc.stdout:
@@ -40,7 +42,8 @@ class BlockList():
 
             today = datetime.today().strftime('%d-%m-%Y')
 
-            cursor.execute("SELECT APP FROM StoringData WHERE APP = ?", [i])
+            cursor.execute(
+                "SELECT APP FROM StoringData WHERE APP = ?", [i])
 
             res = cursor.fetchall()
 
@@ -55,8 +58,10 @@ class BlockList():
                 cursor.execute(
                     "UPDATE StoringData SET Date_Open = ? WHERE APP = ?", (today, i))
                 conn.commit()
+        threading.Timer(180.0, self.getProcess).start()
 
-    def killProcesses(self):
+    def killProcesses(self):  # Blocks blocked processes from running every 3 minutes
+
         cursor.execute("SELECT APP FROM StoringData WHERE BLOCKED = 1")
         results = cursor.fetchall()
         resultsFinal = []
@@ -67,6 +72,4 @@ class BlockList():
         for i in resultsFinal:
             for process in (process for process in psutil.process_iter() if process.name() == f"{i}.exe"):
                 process.kill()
-
-
-BlockList()
+        threading.Timer(180.0, self.killProcesses).start()
