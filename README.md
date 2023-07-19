@@ -4,9 +4,9 @@ Parental Control Software aimed at helping parents keep track of their childs Ap
 Tracks which application was opened and when since the softwares download. Also sends an email based on the 
 usage of Applications.
 
-Softwares and Libraries Used:
+Technologies Used:
 - Python
-  - PyQt5
+  - PyQt5 
   - SQLite3
   - psutil
   - threading
