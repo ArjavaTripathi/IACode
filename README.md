@@ -12,6 +12,7 @@ Softwares and Libraries Used:
   - threading
   - re (Regular Expressions)
   - Inheritance (Single and Multi-Level)
+  - MailGun API used to auto send email
 
 
 
